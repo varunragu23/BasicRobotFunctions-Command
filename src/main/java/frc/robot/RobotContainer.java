@@ -9,6 +9,8 @@ import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.commands.ExampleCommand;
 import frc.robot.subsystems.ExampleSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import frc.robot.subsystems.PIDFalcon;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -19,13 +21,18 @@ import edu.wpi.first.wpilibj2.command.Command;
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
-
+  private final PIDFalcon m_PIDFalcon = new PIDFalcon();
   private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
+  private XboxController joystick = new XboxController(Constants.kJoystickPort); // Joystick
+
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     // Configure the button bindings
     configureButtonBindings();
+
+    
+
   }
 
   /**
@@ -34,13 +41,26 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj.Joystick} or {@link XboxController}), and then passing it to a {@link
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
-  private void configureButtonBindings() {}
+  private void configureButtonBindings() {
+    new JoystickButton(joystick, 5).whenPressed(
+      () -> {
+        // m_PIDFalcon.setSpeedManual(0.1);
+        m_PIDFalcon.setSetpoint(Constants.Rotations * Constants.TicksPerRotation);
+        m_PIDFalcon.enable();
+        System.out.println("here");
+      }, m_PIDFalcon);
+  }
 
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
    *
    * @return the command to run in autonomous
    */
+
+  public void disablePIDSubsystems() {
+    m_PIDFalcon.disable();
+  }
+
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
     return m_autoCommand;

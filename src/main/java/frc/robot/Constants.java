@@ -12,4 +12,20 @@ package frc.robot;
  * <p>It is advised to statically import this class (or one of its inner classes) wherever the
  * constants are needed, to reduce verbosity.
  */
-public final class Constants {}
+public final class Constants {
+
+    public static final int kMotorPort = 7;
+    public static final int kJoystickPort = 0;
+    public static final int kUltrasonicPort = 0;
+    public static final int TalonFXMotor = 10;
+    public static final double errorSum = 0.0000;
+    public static final double prevError = 0.0000;
+    public static final double dTime = 20;
+    public static final double TicksPerRotation = 2048;
+    public static final double Rotations = 10.0000;
+    public static final double dP = 0.00005;
+    public static final double dI = 0.000005; // 5
+    public static final double dD = 0.000005; // 1
+    public static final double Margin = 0.5;
+    public static final double errorRange = TicksPerRotation;
+}
